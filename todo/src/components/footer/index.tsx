@@ -7,14 +7,7 @@ import Filter, { FiltersValueType, FILTERS } from "./filter";
 
 import './index.less';
 
-interface IFooterProps {
-    todosRemaining: number;
-    filter: FiltersValueType;
-}
-
-export default function Footer(props: IFooterProps) {
-    const { todosRemaining, filter } = props;
-
+export default function Footer() {
     return (
         <footer className="todo-footer">
             <Row>
@@ -22,10 +15,10 @@ export default function Footer(props: IFooterProps) {
                     <Actions />
                 </Col>
                 <Col span={8}>
-                    <RemainingTodos count={todosRemaining} />
+                    <RemainingTodos />
                 </Col>
                 <Col span={8}>
-                    <Filter filter={filter} />
+                    <Filter />
                 </Col>
             </Row>
         </footer>

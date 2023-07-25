@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Typography } from "antd";
+import TodoContext from "../../todoContext";
 
 const Title = Typography.Title;
 
-interface IRemainingTodosProps {
-    count: number;
-}
+export default function RemainingTodos() {
 
-export default function RemainingTodos({ count }: IRemainingTodosProps) {
+    const { todos } = useContext(TodoContext);
+
+    const count = todos.reduce((acc, prev) => {
+        return prev.completed ? acc : acc + 1;
+    }, 0);
+
     const suffix = count === 1 ? '' : 's';
 
     return (

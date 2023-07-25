@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import TodoContext from "../../todoContext";
 import TodoItem, { ITodoItem } from "./item";
+import { FILTERS } from "../footer";
 
 import './list.less';
 
@@ -7,13 +10,24 @@ interface ITodoListProps {
     data: ITodoItem[];
 }
 
-export default function TodoList(props: ITodoListProps) {
-    const { data } = props;
+export default function TodoList() {
+    const { todos, filter } = useContext(TodoContext);
+
+    const visibleTodos = todos.filter((todo) => {
+        switch (filter) {
+            case FILTERS.Active:
+                return todo.completed === false;
+            case FILTERS.Completed:
+                return todo.completed === true;
+            default:
+                return true;
+        }
+    });
 
     return (
         <ul className="todo-list">
-            {data.map(({ id, text, completed }) => (
-                <TodoItem key={id} text={text} completed={completed} />
+            {visibleTodos.map((todo) => (
+                <TodoItem key={todo.id} data={todo} />
             ))}
         </ul>
     )
